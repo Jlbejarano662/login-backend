@@ -1,8 +1,7 @@
 # Node
 node_modules
 
-# Build
-build
+
 
 # environment variables
 .env
