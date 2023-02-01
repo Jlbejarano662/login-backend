@@ -1,11 +1,11 @@
 import express, { json } from "express";
 import morgan from "morgan";
-import pkg from "../package.json";
+import pkg from "../package.json" assert { type: "json" };
 
-import { createRoles } from "./libs/initialSetup";
+import { createRoles } from "./libs/initialSetup.js";
 
-import authRoutes from "./routes/auth.routes";
-import homeRoutes from "./routes/home.routes";
+import authRoutes from "./routes/auth.routes.js";
+import homeRoutes from "./routes/home.routes.js";
 
 const app = express();
 createRoles();

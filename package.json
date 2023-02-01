@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "REST API",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "build": "babel src --out-dir build",
     "dev": "nodemon src/index.js --exec babel-node",
-    "start": "nodemon src/index.js --exec babel-node"
+    "start": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "jlbi",

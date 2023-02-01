@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-require('dotenv').config({ path: '.env'}); 
+import { config } from "dotenv";
+config();
 const MONGODB_URI = process.env.MONGODB_URI
 
 const connectionOptions = {
