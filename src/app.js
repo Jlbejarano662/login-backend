@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.routes.js";
 import homeRoutes from "./routes/home.routes.js";
 
 const app = express();
-createRoles();
+await createRoles();
 
 app.use(express.json({ exteng: true }));
 app.use(express.urlencoded({ extended: false }));

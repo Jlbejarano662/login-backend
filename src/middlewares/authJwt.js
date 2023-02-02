@@ -7,17 +7,17 @@ export const verifyToken = async (req, res, next) => {
   try {
     const token = req.headers["x-access-token"];
 
-    if (!token) return res.status(403).json({ message: "No token provided" });
+    if (!token) return res.status(200).json({ message: "No token provided" });
 
     const decode = jwt.verify(token, config.SECRET);
     req.userId = decode.id;
 
     const user = await User.findById(req.userId, { password: 0 });
-    if (!user) return res.status(404).json({ message: "no user found" });
+    if (!user) return res.status(200).json({ message: "no user found" });
 
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(200).json({ message: "Unauthorized" });
   }
 };
 
@@ -45,7 +45,7 @@ export const isAdmin = async (req, res, next) => {
     }
   }
 
-  return res.status(403).json({ message: "Require admin role" });
+  return res.status(200).json({ message: "Require admin role" });
 };
 
 export const isUser = async (req, res, next) => {
@@ -59,5 +59,5 @@ export const isUser = async (req, res, next) => {
     }
   }
 
-  return res.status(403).json({ message: "Require user role" });
+  return res.status(200).json({ message: "Require user role" });
 };
