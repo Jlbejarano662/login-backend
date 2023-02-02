@@ -30,7 +30,7 @@ export const verifyToken = async (req, res, next) => {
     return;
   }
 
-  return res.status(403).json({ message: "Require any role" });
+  return res.status(200).json({ message: "Require any role" });
 }; */
 
 export const isAdmin = async (req, res, next) => {
