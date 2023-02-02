@@ -1,6 +1,5 @@
-import express, { json } from "express";
-import morgan from "morgan";
-import pkg from "../package.json" assert { type: "json" };
+import express from "express";
+import cors from "cors";
 
 import { createRoles } from "./libs/initialSetup.js";
 
@@ -10,20 +9,10 @@ import homeRoutes from "./routes/home.routes.js";
 const app = express();
 createRoles();
 
-app.set("pkg", pkg);
-
-app.use(morgan("dev"));
-app.use(express.json());
+app.use(express.json({ exteng: true }));
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
-app.get("/", (req, res) => {
-  res.json({
-    name: app.get("pkg").name,
-    author: app.get("pkg").author,
-    description: app.get("pkg").description,
-    version: app.get("pkg").version,
-  });
-});
 app.use("/api", homeRoutes);
 app.use("/api/auth", authRoutes);
 
