@@ -1,7 +1,11 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import config from "../config.js";
 import Role from "../models/Role.js";
+import UserControl from "../models/UserControl.js";
+
+import { config } from "dotenv";
+config();
+const SECRET = process.env.SECRET
 
 export const signUp = async (req, res) => {
   const { username, email, password, roles } = req.body;
@@ -22,7 +26,7 @@ export const signUp = async (req, res) => {
 
   const savedUser = await newUser.save();
 
-  const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
+  const token = jwt.sign({ id: savedUser._id }, SECRET, {
     expiresIn: 7200, // 2 hours
   });
 
@@ -38,9 +42,15 @@ export const signIn = async (req, res) => {
 
   if(!matchPassword) return res.status(200).json({token: null, message: "Invalid password"})
 
-  const token = jwt.sign({ id: userFound._id }, config.SECRET, {
+  const userControl = new UserControl({
+    user: userFound.email
+  });
+  await userControl.save()
+
+  const token = jwt.sign({ id: userFound._id }, SECRET, {
     expiresIn: 7200, // 2 hours
   });
+
 
   res.status(200).json({ token });
 };
